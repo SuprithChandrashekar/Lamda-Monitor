@@ -69,7 +69,7 @@ NOTIFICATION_DELAY=30
 def init_database():
     """Initialize the database"""
     try:
-        from init_db import main as init_main
+        from src.database.init_db import main as init_main
         init_main()
         print("✅ Database initialized successfully")
     except Exception as e:

@@ -1,29 +1,48 @@
+# src/database/connection.py
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.ext.declarative import declarative_base
 from ..config import settings
-from .mcp_client import create_mcp_client
+import asyncio
 
-async def get_engine():
-    client = await create_mcp_client()
-    return create_engine(
-        settings.DATABASE_URL,
-        connect_args={"check_same_thread": False},
-        future=True
-    )
+# Create engine with proper SQLite configuration
+engine = create_engine(
+    settings.DATABASE_URL,
+    connect_args={
+        "check_same_thread": False,
+        "timeout": 20
+    },
+    pool_pre_ping=True,
+    echo=False  # Set to True for debugging SQL queries
+)
 
-async def get_db():
-    engine = await get_engine()
-    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+# Create session factory
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+# Create declarative base
+Base = declarative_base()
+
+def get_db():
+    """Get database session - synchronous version"""
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
-        await engine.dispose()
 
-async def init_db():
-    engine = await get_engine()
-    Base = declarative_base()
-    async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+async def get_db_async():
+    """Get database session - asynchronous version"""
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+def init_db():
+    """Initialize database tables"""
+    from .models import Base
+    Base.metadata.create_all(bind=engine)
+
+def get_session() -> Session:
+    """Get a database session directly"""
+    return SessionLocal()
