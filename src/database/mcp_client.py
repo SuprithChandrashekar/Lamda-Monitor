@@ -1,5 +1,5 @@
-from mcp import MCPClient
-from typing import Any, Dict
+from mcp_wrapper import MCPClient
+from typing import Any, Dict, AsyncGenerator
 import asyncio
 from fastapi import FastAPI
 from sqlalchemy import create_engine
@@ -39,7 +39,7 @@ async def create_mcp_client() -> MCPClient:
     )
     return client
 
-async def get_db() -> MCPClient:
+async def get_db() -> AsyncGenerator[MCPClient, None]:
     """Get a database connection using MCP."""
     client = await create_mcp_client()
     try:
