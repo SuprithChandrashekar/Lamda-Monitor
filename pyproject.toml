@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lambda_monitor"
+version = "0.1.0"
+authors = [
+    { name = "Lambda Monitor Team" },
+]
+description = "A system to monitor and analyze social media posts for market impact"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "."
+]

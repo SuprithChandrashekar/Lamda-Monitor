@@ -1,0 +1,15 @@
+{
+    "servers": {
+        "sqlite": {
+            "command": "python",
+            "args": [
+                "-m",
+                "src.database.mcp_server"
+            ],
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            },
+            "workingDir": "${workspaceFolder}"
+        }
+    }
+}

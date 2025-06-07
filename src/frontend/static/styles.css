@@ -1,0 +1,43 @@
+/* Base styles */
+:root {
+    --primary-color: #4f46e5;
+    --secondary-color: #1e1b4b;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --danger-color: #ef4444;
+}
+
+/* Custom components */
+.impact-score {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.impact-score-high {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+.impact-score-medium {
+    background-color: var(--warning-color);
+    color: white;
+}
+
+.impact-score-low {
+    background-color: var(--success-color);
+    color: white;
+}
+
+/* Animations */
+.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
