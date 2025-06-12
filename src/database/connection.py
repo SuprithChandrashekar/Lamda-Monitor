@@ -16,6 +16,11 @@ engine = create_engine(
     echo=False  # Set to True for debugging SQL queries
 )
 
+# Provide engine accessor for modules that need the raw engine
+def get_engine():
+    """Return the SQLAlchemy engine instance."""
+    return engine
+
 # Create session factory
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

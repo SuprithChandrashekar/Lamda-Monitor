@@ -9,7 +9,7 @@ A real-time monitoring system for tracking and analyzing social media posts from
 - Real-time notifications for high-priority posts
 - Customizable watchlists and alerts
 - Historical post search and analysis
-- Cross-reference with market data
+- Interactive web dashboard built with FastAPI
 
 ## Setup
 
@@ -22,7 +22,10 @@ cd Lamda_Monitor
 2. Create and activate a virtual environment:
 ```bash
 python -m venv venv
-source venv/Scripts/activate  # On Windows
+# On Linux/macOS
+source venv/bin/activate
+# On Windows
+venv\Scripts\activate
 ```
 
 3. Install dependencies:
@@ -36,7 +39,7 @@ pip install -r requirements.txt
 
 5. Initialize the database:
 ```bash
-python -m src.database.connection
+python -m src.database.init_db
 ```
 
 6. Start the application:
@@ -47,7 +50,6 @@ python -m src.main
 ## Project Structure
 
 ```
-├── docs/               # Documentation
 ├── src/               # Source code
 │   ├── analyzers/     # AI analysis modules
 │   ├── database/      # Database models and connection
@@ -56,6 +58,7 @@ python -m src.main
 │   ├── notifiers/     # Notification system
 │   ├── config.py      # Configuration
 │   └── main.py        # FastAPI application
+├── start.py           # Convenience startup script
 └── tests/             # Test suite
 ```
 
